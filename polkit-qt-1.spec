@@ -80,14 +80,14 @@ based on %name.
 
 %files devel
 %defattr(-,root,root)
-%{_kde_includedir}/polkit-qt-1
-%{_kde_libdir}/libpolkit-qt-agent-1.so
-%{_kde_libdir}/libpolkit-qt-core-1.so
-%{_kde_libdir}/libpolkit-qt-gui-1.so
-%{_kde_libdir}/pkgconfig/polkit-qt-1.pc
-%{_kde_libdir}/pkgconfig/polkit-qt-agent-1.pc
-%{_kde_libdir}/pkgconfig/polkit-qt-core-1.pc
-%{_kde_libdir}/pkgconfig/polkit-qt-gui-1.pc
+%{_includedir}/polkit-qt-1
+%{_libdir}/libpolkit-qt-agent-1.so
+%{_libdir}/libpolkit-qt-core-1.so
+%{_libdir}/libpolkit-qt-gui-1.so
+%{_libdir}/pkgconfig/polkit-qt-1.pc
+%{_libdir}/pkgconfig/polkit-qt-agent-1.pc
+%{_libdir}/pkgconfig/polkit-qt-core-1.pc
+%{_libdir}/pkgconfig/polkit-qt-gui-1.pc
 
 #-----------------------------------------------------------------------------
 
