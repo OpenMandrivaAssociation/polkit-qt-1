@@ -1,13 +1,13 @@
 %define         svn  1056463
 
 Name:           polkit-qt-1
-Version:        0.95.0
+Version:        0.95.1
 Summary:        Library that allows developer to access PolicyKit-1 API
 Release:        %mkrel 0.%svn.1
 License:        GPL
 Group:          Graphical desktop/KDE
 URL:            http://www.kde.org/
-Source0:        %{name}-%{version}.%{svn}.tar.bz2
+Source0:        %{name}-%{version}.tar.bz2
 BuildRoot:      %_tmppath/%name-%version-%release-buildroot
 BuildRequires:  polkit-1-devel >= 0.95
 BUildRequires:  qt4-devel
@@ -92,7 +92,7 @@ based on %name.
 #-----------------------------------------------------------------------------
 
 %prep
-%setup -q -n %name
+%setup -q -n %name-%version
 
 %build
 
