@@ -1,7 +1,5 @@
-%define         svn  1056463
-
 Name:           polkit-qt-1
-Version:        0.95.1
+Version:        0.96.1
 Summary:        Library that allows developer to access PolicyKit-1 API
 Release:        %mkrel 1
 License:        GPL
@@ -95,10 +93,8 @@ based on %name.
 %setup -q -n %name-%version
 
 %build
-
 %cmake_qt4
 %make
-
 
 %install
 rm -rf %buildroot
