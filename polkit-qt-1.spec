@@ -1,11 +1,11 @@
 Name:           polkit-qt-1
-Version:        0.98.1
+Version:        0.99.0
 Summary:        Library that allows developer to access PolicyKit-1 API
 Release:        %mkrel 1
 License:        LGPLv2+
 Group:          Graphical desktop/KDE
 URL:            http://projects.kde.org/projects/extragear/base/polkit-qt-1
-Source0:        %{name}-%{version}.tar.bz2
+Source0:        http://fr2.rpmfind.net/linux/KDE/stable/apps/KDE4.x/admin/%{name}-%{version}.tar.bz2
 BuildRoot:      %_tmppath/%name-%version-%release-buildroot
 BuildRequires:  polkit-1-devel >= 0.98.1
 BUildRequires:  qt4-devel
@@ -18,7 +18,7 @@ API with a nice Qt-style API
 
 #-----------------------------------------------------------------------------
 
-%define libpolkit_qt_core_1_major 0
+%define libpolkit_qt_core_1_major 1
 %define libpolkit_qt_core_1 %mklibname polkit-qt-core-1_ %{libpolkit_qt_core_1_major}
 
 %package -n %libpolkit_qt_core_1
@@ -35,7 +35,7 @@ Polkit-Qt core library.
 
 #-----------------------------------------------------------------------------
 
-%define libpolkit_qt_gui_1_major 0
+%define libpolkit_qt_gui_1_major 1
 %define libpolkit_qt_gui_1 %mklibname polkit-qt-gui-1_ %{libpolkit_qt_gui_1_major}
 
 %package -n %libpolkit_qt_gui_1
@@ -52,7 +52,7 @@ Polkit-Qt core library.
 
 #-----------------------------------------------------------------------------
 
-%define libpolkit_qt_agent_1_major 0
+%define libpolkit_qt_agent_1_major 1
 %define libpolkit_qt_agent_1 %mklibname polkit-qt-agent-1_ %{libpolkit_qt_agent_1_major}
 
 %package -n %libpolkit_qt_agent_1
@@ -90,6 +90,7 @@ based on %name.
 %{_libdir}/pkgconfig/polkit-qt-agent-1.pc
 %{_libdir}/pkgconfig/polkit-qt-core-1.pc
 %{_libdir}/pkgconfig/polkit-qt-gui-1.pc
+%{_libdir}/cmake/PolkitQt-1/*.cmake
 
 #-----------------------------------------------------------------------------
 
