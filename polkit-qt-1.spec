@@ -4,7 +4,7 @@ Summary:        Library that allows developer to access PolicyKit-1 API
 Release:        %mkrel 1
 License:        LGPLv2+
 Group:          Graphical desktop/KDE
-URL:            http://projects.kde.org/projects/extragear/base/polkit-qt-1
+URL:            https://projects.kde.org/projects/kdesupport/polkit-qt-1
 Source0:        http://fr2.rpmfind.net/linux/KDE/stable/apps/KDE4.x/admin/%{name}-%{version}.tar.bz2
 BuildRoot:      %_tmppath/%name-%version-%release-buildroot
 BuildRequires:  polkit-1-devel >= 0.98.1
