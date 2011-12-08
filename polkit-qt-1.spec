@@ -1,14 +1,16 @@
+%define major 1
+
 Name:           polkit-qt-1
 Version:        0.99.0
 Summary:        Library that allows developer to access PolicyKit-1 API
-Release:        %mkrel 2
+Release:        3
 License:        LGPLv2+
 Group:          Graphical desktop/KDE
 URL:            https://projects.kde.org/projects/kdesupport/polkit-qt-1
 Source0:        http://fr2.rpmfind.net/linux/KDE/stable/apps/KDE4.x/admin/%{name}-%{version}.tar.bz2
-BuildRoot:      %_tmppath/%name-%version-%release-buildroot
+
 BuildRequires:  polkit-1-devel >= 0.98.1
-BUildRequires:  qt4-devel
+BuildRequires:  qt4-devel
 BuildRequires:  cmake
 BuildRequires:  automoc4
 
@@ -17,9 +19,7 @@ Polkit-qt is a library that allows developer to access PolicyKit-1
 API with a nice Qt-style API
 
 #-----------------------------------------------------------------------------
-
-%define libpolkit_qt_core_1_major 1
-%define libpolkit_qt_core_1 %mklibname polkit-qt-core-1_ %{libpolkit_qt_core_1_major}
+%define libpolkit_qt_core_1 %mklibname polkit-qt-core-1_ %{major}
 
 %package -n %libpolkit_qt_core_1
 Summary: Polkit-Qt core library
@@ -30,13 +30,10 @@ Obsoletes: %{_lib}polkit-qt-core-10 < %{version}-%{release}
 Polkit-Qt core library.
 
 %files -n %libpolkit_qt_core_1
-%defattr(-,root,root)
-%_libdir/libpolkit-qt-core-1.so.%{libpolkit_qt_core_1_major}*
+%{_libdir}/libpolkit-qt-core-1.so.%{major}*
 
 #-----------------------------------------------------------------------------
-
-%define libpolkit_qt_gui_1_major 1
-%define libpolkit_qt_gui_1 %mklibname polkit-qt-gui-1_ %{libpolkit_qt_gui_1_major}
+%define libpolkit_qt_gui_1 %mklibname polkit-qt-gui-1_ %{major}
 
 %package -n %libpolkit_qt_gui_1
 Summary: Polkit-Qt core library
@@ -47,13 +44,10 @@ Obsoletes: %{_lib}polkit-qt-gui-10 < %{version}-%{release}
 Polkit-Qt core library.
 
 %files -n %libpolkit_qt_gui_1
-%defattr(-,root,root)
-%_libdir/libpolkit-qt-gui-1.so.%{libpolkit_qt_gui_1_major}*
+%{_libdir}/libpolkit-qt-gui-1.so.%{major}*
 
 #-----------------------------------------------------------------------------
-
-%define libpolkit_qt_agent_1_major 1
-%define libpolkit_qt_agent_1 %mklibname polkit-qt-agent-1_ %{libpolkit_qt_agent_1_major}
+%define libpolkit_qt_agent_1 %mklibname polkit-qt-agent-1_ %{major}
 
 %package -n %libpolkit_qt_agent_1
 Summary: Polkit-Qt core library
@@ -64,8 +58,7 @@ Obsoletes: %{_lib}polkit-qt-agent-10 < %{version}-%{release}
 Polkit-Qt core library.
 
 %files -n %libpolkit_qt_agent_1
-%defattr(-,root,root)
-%_libdir/libpolkit-qt-agent-1.so.%{libpolkit_qt_agent_1_major}*
+%{_libdir}/libpolkit-qt-agent-1.so.%{major}*
 
 #-----------------------------------------------------------------------------
 
@@ -81,7 +74,6 @@ This package contains header files needed if you wish to build applications
 based on %name.
 
 %files devel
-%defattr(-,root,root)
 %{_includedir}/polkit-qt-1
 %{_libdir}/libpolkit-qt-agent-1.so
 %{_libdir}/libpolkit-qt-core-1.so
@@ -95,7 +87,7 @@ based on %name.
 #-----------------------------------------------------------------------------
 
 %prep
-%setup -q -n %name-%version
+%setup -q
 
 %build
 %cmake_qt4
@@ -104,7 +96,3 @@ based on %name.
 %install
 rm -rf %buildroot
 %makeinstall_std -C build
-
-%clean
-rm -rf %{buildroot}
-
