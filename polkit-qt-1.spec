@@ -1,7 +1,7 @@
 %define major 1
 
 Name:           polkit-qt-1
-Version:        0.99.0
+Version:        0.103.0
 Summary:        Library that allows developer to access PolicyKit-1 API
 Release:        3
 License:        LGPLv2+
