@@ -1,13 +1,22 @@
 %define major 1
 
 Name:		polkit-qt-1
-Version:	0.103.0
+Version:	0.112.0
 Summary:	Library that allows developer to access PolicyKit-1 API
-Release:	5
+Release:	0.1
 License:	LGPLv2+
 Group:		Graphical desktop/KDE
 URL:		https://projects.kde.org/projects/kdesupport/polkit-qt-1
 Source0:	http://fr2.rpmfind.net/linux/KDE/stable/apps/KDE4.x/admin/%{name}-%{version}.tar.bz2
+
+## upstream patches
+Patch1: 0001-do-not-use-global-static-systembus-instance.patch
+Patch2: 0002-fix-build-with-Qt4-which-doesn-t-have-QStringLiteral.patch
+Patch3: 0003-Fix-QDBusArgument-assertion.patch
+Patch5: 0005-Add-wrapper-for-polkit_system_bus_name_get_user_sync.patch
+Patch6: 0006-Drop-use-of-deprecated-Qt-functions.patch
+Patch7: 0007-Fix-compilation-with-Qt5.6.patch
+Patch8: 0008-Allow-compilation-with-older-polkit-versions.patch
 
 BuildRequires:	polkit-1-devel >= 0.98.1
 BuildRequires:	qt4-devel
@@ -88,9 +97,10 @@ based on %{name}.
 
 %prep
 %setup -q
+%apply_patches
 
 %build
-%cmake_qt4
+%cmake_qt4 -DUSE_QT4=ON -DUSE_QT5=OFF
 %make
 
 %install
