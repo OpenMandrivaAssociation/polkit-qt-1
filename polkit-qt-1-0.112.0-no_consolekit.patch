@@ -1,0 +1,75 @@
+--- polkit-qt-1-0.112.0/core/polkitqt1-authority.cpp.orig	2016-04-25 12:51:30.964871969 +0100
++++ polkit-qt-1-0.112.0/core/polkitqt1-authority.cpp	2016-04-25 13:08:17.044209263 +0100
+@@ -99,7 +99,6 @@
+ 
+     void dbusFilter(const QDBusMessage &message);
+     void dbusSignalAdd(const QString &service, const QString &path, const QString &interface, const QString &name);
+-    void seatSignalsConnect(const QString &seat);
+ 
+     Authority *q;
+     PolkitAuthority *pkAuthority;
+@@ -222,33 +221,6 @@
+     // need to listen to NameOwnerChanged
+     dbusSignalAdd("org.freedesktop.DBus", "/", "org.freedesktop.DBus", "NameOwnerChanged");
+ 
+-    QString consoleKitService("org.freedesktop.ConsoleKit");
+-    QString consoleKitManagerPath("/org/freedesktop/ConsoleKit/Manager");
+-    QString consoleKitManagerInterface("org.freedesktop.ConsoleKit.Manager");
+-    QString consoleKitSeatInterface("org.freedesktop.ConsoleKit.Seat");
+-
+-    // first, add signals SeadAdded and SeatRemoved from ConsoleKit Manager
+-    dbusSignalAdd(consoleKitService, consoleKitManagerPath, consoleKitManagerInterface, "SeatAdded");
+-    dbusSignalAdd(consoleKitService, consoleKitManagerPath, consoleKitManagerInterface, "SeatRemoved");
+-
+-    // then we need to extract all seats from ConsoleKit
+-    QDBusMessage msg = QDBusMessage::createMethodCall(consoleKitService, consoleKitManagerPath, consoleKitManagerInterface, "GetSeats");
+-    const QDBusMessage reply = m_systemBus->call(msg);
+-
+-    if (reply.type() != QDBusMessage::ErrorMessage && !reply.arguments().isEmpty()) {
+-        // this method returns a list with present seats
+-        QStringList seats;
+-        QVariant arg = reply.arguments()[0];
+-        if (arg.type() == qMetaTypeId<QDBusArgument>()) {
+-            arg.value<QDBusArgument>() >> seats;
+-        } else {
+-            seats = arg.toStringList();
+-        }
+-        // it can be multiple seats present so connect all their signals
+-        Q_FOREACH(const QString &seat, seats) {
+-            seatSignalsConnect(seat);
+-        }
+-    }
+ }
+ 
+ void Authority::Private::setError(Authority::ErrorCode code, const QString &details, bool recover)
+@@ -261,18 +233,6 @@
+     m_hasError = true;
+ }
+ 
+-void Authority::Private::seatSignalsConnect(const QString &seat)
+-{
+-    QString consoleKitService("org.freedesktop.ConsoleKit");
+-    QString consoleKitSeatInterface("org.freedesktop.ConsoleKit.Seat");
+-    // we want to connect to all slots of the seat
+-    dbusSignalAdd(consoleKitService, seat, consoleKitSeatInterface, "DeviceAdded");
+-    dbusSignalAdd(consoleKitService, seat, consoleKitSeatInterface, "DeviceRemoved");
+-    dbusSignalAdd(consoleKitService, seat, consoleKitSeatInterface, "SessionAdded");
+-    dbusSignalAdd(consoleKitService, seat, consoleKitSeatInterface, "SessionRemoved");
+-    dbusSignalAdd(consoleKitService, seat, consoleKitSeatInterface, "ActiveSessionChanged");
+-}
+-
+ void Authority::Private::dbusSignalAdd(const QString &service, const QString &path, const QString &interface, const QString &name)
+ {
+     // FIXME: This code seems to be nonfunctional - it needs to be fixed somewhere (is it Qt BUG?)
+@@ -283,11 +243,6 @@
+ {
+     if (message.type() == QDBusMessage::SignalMessage) {
+         Q_EMIT q->consoleKitDBChanged();
+-
+-        // TODO: Test this with the multiseat support
+-        if (message.member() == "SeatAdded") {
+-            seatSignalsConnect(message.arguments()[0].value<QDBusObjectPath>().path());
+-        }
+     }
+ }
+ 

@@ -3,7 +3,7 @@
 Name:		polkit-qt-1
 Version:	0.112.0
 Summary:	Library that allows developer to access PolicyKit-1 API
-Release:	0.1
+Release:	0.2
 License:	LGPLv2+
 Group:		Graphical desktop/KDE
 URL:		https://projects.kde.org/projects/kdesupport/polkit-qt-1
@@ -17,6 +17,7 @@ Patch5: 0005-Add-wrapper-for-polkit_system_bus_name_get_user_sync.patch
 Patch6: 0006-Drop-use-of-deprecated-Qt-functions.patch
 Patch7: 0007-Fix-compilation-with-Qt5.6.patch
 Patch8: 0008-Allow-compilation-with-older-polkit-versions.patch
+Patch9: polkit-qt-1-0.112.0-no_consolekit.patch
 
 BuildRequires:	polkit-1-devel >= 0.98.1
 BuildRequires:	qt4-devel
